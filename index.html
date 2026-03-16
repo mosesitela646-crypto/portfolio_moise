@@ -3,222 +3,684 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moise ITELA | Digital Architect & IA - UPL</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;500;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>Moise MUTACH ITELA | Ingénieur GL/IA — UPL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #00ff88;
-            --secondary: #0066ff;
-            --bg: #050505;
-            --surface: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
+            --gold: #C9A84C;
+            --gold-light: #E8C97A;
+            --navy: #0A0F2C;
+            --navy-mid: #111936;
+            --navy-light: #1A2448;
+            --white: #F4F1EC;
+            --muted: #8A90A8;
+            --border: rgba(201,168,76,0.15);
+            --sans: 'Syne', sans-serif;
+            --mono: 'Space Mono', monospace;
         }
 
-        /* Reset & Base */
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { 
-            background: var(--bg); 
-            color: #fff; 
-            font-family: var(--font-sans);
-            overflow-x: hidden; 
+
+        body {
+            background: var(--navy);
+            color: var(--white);
+            font-family: var(--sans);
+            overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Arrière-plan dynamique */
-        .orb {
-            position: fixed; width: 600px; height: 600px;
-            background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
-            border-radius: 50%; z-index: -1; pointer-events: none;
+        ::selection { background: var(--gold); color: var(--navy); }
+
+        /* Grille de fond */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 0;
+            pointer-events: none;
         }
 
-        /* Barre de navigation */
+        /* Lueur ambiante */
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-1 { width: 500px; height: 500px; background: rgba(201,168,76,0.07); top: -100px; right: -100px; }
+        .glow-2 { width: 400px; height: 400px; background: rgba(10,15,44,0.9); bottom: 0; left: -100px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 5%; position: relative; z-index: 1; }
+
+        /* NAV */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            position: fixed; top: 0; width: 100%; z-index: 100;
+            padding: 22px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            backdrop-filter: blur(20px); z-index: 1000; border-bottom: 1px solid var(--border);
+            background: rgba(10,15,44,0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
         }
-        .nav-brand { font-family: var(--font-mono); font-weight: 800; color: var(--primary); letter-spacing: -1px; }
-        .nav-links { display: flex; gap: 30px; list-style: none; font-size: 11px; font-weight: 700; text-transform: uppercase; }
-        .nav-links a { text-decoration: none; color: #fff; opacity: 0.6; transition: 0.3s; }
-        .nav-links a:hover { opacity: 1; color: var(--primary); }
-
-        /* Hero Section */
-        header { height: 100vh; display: flex; align-items: center; padding: 0 10%; position: relative; }
-        .hero-content { z-index: 2; }
-        .badge { 
-            background: var(--surface); border: 1px solid var(--primary); 
-            padding: 6px 16px; border-radius: 50px; font-size: 11px; color: var(--primary);
-            font-family: var(--font-mono); display: inline-block; margin-bottom: 25px;
+        .nav-logo {
+            font-family: var(--mono); font-size: 13px; font-weight: 700;
+            color: var(--gold); letter-spacing: 2px; text-decoration: none;
         }
-        h1 { font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 800; line-height: 0.85; margin-bottom: 30px; letter-spacing: -4px; }
-        h1 span { background: linear-gradient(90deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-desc { max-width: 600px; color: #888; font-size: 1.1rem; margin-bottom: 40px; }
-
-        /* Bento Grid des Ambitions */
-        .container { padding: 120px 10%; }
-        .section-header { margin-bottom: 60px; }
-        .section-header h2 { font-size: 3rem; font-weight: 800; letter-spacing: -2px; }
-
-        .bento-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+        .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+        .nav-links a {
+            font-family: var(--mono); font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
+            color: var(--muted); text-decoration: none; transition: color 0.3s;
         }
-
-        .bento-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 28px;
-            padding: 35px; transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-            display: flex; flex-direction: column; justify-content: space-between;
+        .nav-links a:hover { color: var(--gold); }
+        .nav-cta {
+            background: transparent; border: 1px solid var(--gold);
+            color: var(--gold); padding: 9px 22px; border-radius: 4px;
+            font-family: var(--mono); font-size: 10px; font-weight: 700;
+            letter-spacing: 2px; text-decoration: none; transition: 0.3s;
         }
-        .bento-card:hover { transform: translateY(-10px); border-color: var(--primary); background: rgba(0, 255, 136, 0.03); }
-        
-        .bento-card.big { grid-column: span 2; grid-row: span 2; }
-        .bento-card.wide { grid-column: span 2; }
-        .card-tag { font-family: var(--font-mono); font-size: 9px; color: var(--primary); text-transform: uppercase; margin-bottom: 15px; display: block; }
-        .bento-card h3 { font-size: 22px; margin-bottom: 15px; font-weight: 700; }
-        .bento-card p { color: #888; font-size: 14px; line-height: 1.5; }
+        .nav-cta:hover { background: var(--gold); color: var(--navy); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+        .nav-toggle span { display: block; width: 20px; height: 2px; background: var(--gold); transition: 0.3s; }
 
-        /* Section Contact */
-        .contact-section { padding: 100px 10%; background: #080808; }
-        .contact-container {
-            max-width: 900px; margin: 0 auto; background: var(--surface);
-            border: 1px solid var(--border); padding: 60px; border-radius: 40px;
-            backdrop-filter: blur(20px); text-align: center;
+        /* HERO */
+        #hero {
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding: 140px 5% 80px;
+            position: relative; z-index: 1;
         }
-        .contact-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 50px;
+        .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+        .hero-label {
+            font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
+            color: var(--gold); text-transform: uppercase; margin-bottom: 24px;
+            display: flex; align-items: center; gap: 12px;
         }
-        .contact-method {
-            padding: 30px; border: 1px solid var(--border); border-radius: 24px;
-            transition: 0.4s; text-decoration: none; color: white; text-align: left;
+        .hero-label::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+        h1 {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800; line-height: 1.0;
+            margin-bottom: 20px; letter-spacing: -1px;
         }
-        .contact-method:hover { border-color: var(--primary); background: rgba(0, 255, 136, 0.05); transform: scale(1.02); }
-        .contact-method span { font-family: var(--font-mono); font-size: 10px; color: var(--primary); display: block; margin-bottom: 10px; }
-        .contact-method h4 { font-size: 16px; word-break: break-all; }
+        h1 .name-gold { color: var(--gold); display: block; }
+        .hero-role {
+            font-family: var(--mono); font-size: 13px; color: var(--muted);
+            margin-bottom: 28px; letter-spacing: 1px;
+        }
+        .hero-desc { color: var(--muted); font-size: 15px; line-height: 1.8; max-width: 480px; margin-bottom: 40px; }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-        footer { padding: 80px 10%; text-align: center; border-top: 1px solid var(--border); color: #444; font-size: 12px; font-family: var(--font-mono); }
+        .btn-primary {
+            background: var(--gold); color: var(--navy);
+            padding: 14px 32px; border-radius: 4px;
+            font-family: var(--mono); font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; text-decoration: none; text-transform: uppercase;
+            transition: 0.3s; border: 1px solid var(--gold);
+        }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.3); }
 
-        @media (max-width: 1000px) {
-            .bento-grid, .contact-grid { grid-template-columns: 1fr; }
-            .bento-card.big, .bento-card.wide { grid-column: span 1; grid-row: span 1; }
+        .btn-secondary {
+            background: transparent; color: var(--white);
+            padding: 14px 32px; border-radius: 4px;
+            font-family: var(--mono); font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; text-decoration: none; text-transform: uppercase;
+            transition: 0.3s; border: 1px solid rgba(244,241,236,0.2);
+        }
+        .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+        /* Carte identité droite */
+        .hero-card {
+            background: var(--navy-mid);
+            border: 1px solid var(--border);
+            border-radius: 12px; padding: 40px;
+            position: relative; overflow: hidden;
+        }
+        .hero-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .card-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .card-row:last-child { border-bottom: none; }
+        .card-label { font-family: var(--mono); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+        .card-value { font-size: 13px; font-weight: 600; text-align: right; }
+        .card-value.gold { color: var(--gold); }
+        .status-dot {
+            display: inline-block; width: 7px; height: 7px;
+            background: #4ADE80; border-radius: 50%; margin-right: 7px;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+        /* STATS */
+        .stats-row {
+            display: flex; gap: 0;
+            border: 1px solid var(--border);
+            border-radius: 8px; overflow: hidden;
+            margin-top: 50px;
+        }
+        .stat {
+            flex: 1; padding: 28px 20px; text-align: center;
+            border-right: 1px solid var(--border);
+            background: var(--navy-mid);
+        }
+        .stat:last-child { border-right: none; }
+        .stat-n { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--gold); display: block; }
+        .stat-l { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* SECTIONS */
+        section { padding: 100px 0; position: relative; z-index: 1; }
+        section.alt { background: var(--navy-mid); }
+
+        .section-tag {
+            font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
+            color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .section-tag::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
+        .section-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 50px; }
+
+        /* DOMAINES */
+        .domains-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .domain-card {
+            background: var(--navy-light); border: 1px solid var(--border);
+            border-radius: 10px; padding: 32px; text-decoration: none; color: var(--white);
+            transition: 0.4s; display: flex; flex-direction: column; gap: 14px;
+        }
+        .domain-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .domain-card.wide { grid-column: span 2; }
+        .domain-icon { font-size: 22px; }
+        .domain-id { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 2px; }
+        .domain-card h3 { font-size: 17px; font-weight: 700; }
+        .domain-card p { color: var(--muted); font-size: 13px; line-height: 1.6; }
+        .domain-arrow { margin-top: auto; color: var(--gold); font-size: 18px; transition: transform 0.3s; }
+        .domain-card:hover .domain-arrow { transform: translateX(6px); }
+
+        /* AMBITIONS */
+        .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 40px; }
+        .fbtn {
+            font-family: var(--mono); font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+            padding: 8px 18px; border-radius: 4px; cursor: pointer; transition: 0.3s;
+            background: transparent; border: 1px solid var(--border); color: var(--muted);
+        }
+        .fbtn:hover, .fbtn.on { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+        .amb-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+        .amb-card {
+            background: var(--navy-light); border: 1px solid var(--border);
+            border-radius: 10px; padding: 26px; display: flex;
+            flex-direction: column; justify-content: space-between;
+            min-height: 170px; transition: 0.4s;
+        }
+        .amb-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 15px 35px rgba(0,0,0,0.25); }
+        .amb-card.big { grid-column: span 2; grid-row: span 2; }
+        .amb-card.wide { grid-column: span 2; }
+        .amb-id { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 1px; margin-bottom: 10px; }
+        .amb-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+        .amb-card p { color: var(--muted); font-size: 12px; line-height: 1.5; }
+        .amb-status { font-family: var(--mono); font-size: 8px; color: rgba(201,168,76,0.5); margin-top: 16px; letter-spacing: 1px; }
+
+        /* PROJETS */
+        .proj-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+        .proj-card {
+            background: var(--navy-light); border: 1px solid var(--border);
+            border-radius: 10px; padding: 32px; display: flex;
+            flex-direction: column; gap: 14px; transition: 0.4s;
+        }
+        .proj-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .proj-card.wide { grid-column: span 2; border-color: rgba(201,168,76,0.3); background: rgba(201,168,76,0.04); }
+        .proj-top { display: flex; justify-content: space-between; align-items: center; }
+        .proj-id { font-family: var(--mono); font-size: 9px; color: var(--gold); letter-spacing: 2px; }
+        .proj-status {
+            font-family: var(--mono); font-size: 9px; padding: 4px 10px;
+            border-radius: 20px; font-weight: 700; text-transform: uppercase;
+        }
+        .ps-active { background: rgba(74,222,128,0.12); color: #4ADE80; border: 1px solid rgba(74,222,128,0.25); }
+        .ps-research { background: rgba(96,165,250,0.12); color: #60A5FA; border: 1px solid rgba(96,165,250,0.25); }
+        .ps-concept { background: rgba(138,144,168,0.12); color: var(--muted); border: 1px solid var(--border); }
+        .proj-card h3 { font-size: 19px; font-weight: 700; }
+        .proj-card p { color: var(--muted); font-size: 13px; line-height: 1.6; flex: 1; }
+        .proj-tech { display: flex; gap: 8px; flex-wrap: wrap; }
+        .proj-tech span {
+            font-family: var(--mono); font-size: 10px; padding: 4px 10px;
+            border-radius: 4px; background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border); color: var(--muted);
+        }
+        .btn-sm {
+            align-self: flex-start; font-family: var(--mono); font-size: 10px;
+            letter-spacing: 1px; text-transform: uppercase; padding: 9px 18px;
+            border-radius: 4px; text-decoration: none; color: var(--gold);
+            border: 1px solid rgba(201,168,76,0.3); transition: 0.3s;
+        }
+        .btn-sm:hover { background: rgba(201,168,76,0.1); }
+
+        /* VISION */
+        .vision-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: start; }
+        .vision-text p { color: var(--muted); font-size: 15px; line-height: 1.9; margin-bottom: 20px; }
+        .vision-text strong { color: var(--gold); font-weight: 600; }
+        .timeline { display: flex; flex-direction: column; gap: 0; }
+        .tl-item { display: flex; gap: 24px; padding-bottom: 36px; position: relative; }
+        .tl-item:not(:last-child)::before { content:''; position:absolute; left:14px; top:30px; bottom:0; width:1px; background:var(--border); }
+        .tl-dot { width:28px; height:28px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--muted); flex-shrink:0; font-family:var(--mono); background:var(--navy-light); z-index:1; }
+        .tl-dot.done { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.1); }
+        .tl-dot.now { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.2); box-shadow:0 0 16px rgba(201,168,76,0.3); }
+        .tl-date { font-family:var(--mono); font-size:9px; color:var(--gold); display:block; margin-bottom:5px; letter-spacing:1px; }
+        .tl-content h4 { font-size:15px; font-weight:700; margin-bottom:5px; }
+        .tl-content p { color:var(--muted); font-size:12px; line-height:1.6; }
+
+        /* VALEURS */
+        .val-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+        .val-card {
+            background: var(--navy-light); border: 1px solid var(--border);
+            border-radius: 10px; padding: 28px; transition: 0.4s;
+        }
+        .val-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .val-icon { font-size: 22px; margin-bottom: 14px; }
+        .val-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+        .val-card p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+
+        /* CTA */
+        .cta-wrap {
+            background: var(--navy-light); border: 1px solid var(--border);
+            border-radius: 12px; padding: 70px; text-align: center; position: relative; overflow: hidden;
+        }
+        .cta-wrap::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+        .cta-wrap h2 { font-size: clamp(1.8rem,3.5vw,2.5rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 14px; }
+        .cta-wrap p { color: var(--muted); font-size: 15px; margin-bottom: 35px; }
+        .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 50px 0 35px;
+            position: relative; z-index: 1;
+        }
+        .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; margin-bottom: 30px; }
+        .footer-nav { display: flex; gap: 30px; }
+        .footer-nav a { font-family: var(--mono); font-size: 10px; color: var(--muted); text-decoration: none; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+        .footer-nav a:hover { color: var(--gold); }
+        .footer-bottom { border-top: 1px solid var(--border); padding-top: 25px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .footer-copy { font-family: var(--mono); font-size: 10px; color: rgba(138,144,168,0.5); letter-spacing: 1px; }
+        .footer-loc { font-family: var(--mono); font-size: 10px; color: rgba(138,144,168,0.5); }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px){
+            .hero-inner{grid-template-columns:1fr}
+            .hero-card{display:none}
+            .domains-grid,.proj-grid{grid-template-columns:repeat(2,1fr)}
+            .domain-card.wide,.proj-card.wide{grid-column:span 2}
+            .amb-grid{grid-template-columns:repeat(2,1fr)}
+            .amb-card.big,.amb-card.wide{grid-column:span 2;grid-row:span 1}
+            .val-grid{grid-template-columns:repeat(2,1fr)}
+            .vision-layout{grid-template-columns:1fr}
+        }
+        @media(max-width:768px){
+            .nav-links{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(10,15,44,.98);padding:28px 5%;flex-direction:column;gap:20px;border-bottom:1px solid var(--border)}
+            .nav-links.open{display:flex}
+            .nav-toggle{display:flex}
+            .domains-grid,.proj-grid,.val-grid{grid-template-columns:1fr}
+            .domain-card.wide,.proj-card.wide{grid-column:span 1}
+            .amb-grid{grid-template-columns:1fr}
+            .amb-card.big,.amb-card.wide{grid-column:span 1}
+            .cta-wrap{padding:40px 25px}
+            .stats-row{flex-direction:column}
+            .stat{border-right:none;border-bottom:1px solid var(--border)}
+            .stat:last-child{border-bottom:none}
+            .footer-inner{flex-direction:column;text-align:center}
+            .footer-bottom{flex-direction:column;text-align:center}
         }
     </style>
 </head>
 <body>
 
-    <div class="orb" style="top: -10%; right: -10%;"></div>
-    <div class="orb" style="bottom: -10%; left: -10%; background: radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%);"></div>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
 
-    <nav>
-        <div class="nav-brand">M.ITELA // ARCHITECT</div>
-        <ul class="nav-links">
-            <li><a href="#ambitions">Ambitions</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li style="color: var(--primary)">BAC2 GL/IA</li>
-        </ul>
-    </nav>
+<nav>
+    <a href="#hero" class="nav-logo">ITELA.GL</a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#ambitions">Ambitions</a></li>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="contact.php" class="nav-cta">Contact</a></li>
+    </ul>
+</nav>
 
-    <header>
-        <div class="hero-content">
-            <div class="badge">SYSTÈMES SOUVERAINS // RDC 🇨🇩</div>
-            <h1>MOISE<br><span>ITELA.</span></h1>
+<section id="hero">
+    <div class="hero-inner container" style="padding:0">
+        <div class="hero-left">
+            <div class="hero-label">Futur Ingénieur — UPL Lubumbashi</div>
+            <h1>
+                Moise Mapuche<br>
+                <span class="name-gold">ITELA</span>
+            </h1>
+            <p class="hero-role">BAC2 Génie Logiciel & Intelligence Artificielle</p>
             <p class="hero-desc">
-                Futur ingénieur en Génie Logiciel. Spécialiste de la restauration algorithmique et de l'optimisation **Best_Kelly**. 
-                Développement d'infrastructures critiques pour l'écosystème numérique du Congo.
+                Je conçois des infrastructures techniques pour l'écosystème numérique congolais.
+                Spécialisé en systèmes distribués, optimisation algorithmique et intelligence artificielle appliquée au contexte africain.
             </p>
-            <a href="#contact" style="display: inline-block; padding: 18px 35px; background: var(--primary); color: #000; text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 14px;">ME CONTACTER</a>
-        </div>
-    </header>
-
-    <main class="container" id="ambitions">
-        <div class="section-header">
-            <h2 id="ambitions">L'Atlas des 100 Ambitions</h2>
-            <p style="color: var(--primary); font-family: var(--font-mono); margin-top: 10px;">// SYSTEM_DATABASE_INITIATED</p>
-        </div>
-
-        <div class="bento-grid" id="ambition-engine">
+            <div class="hero-actions">
+                <a href="#ambitions" class="btn-primary">Mes ambitions</a>
+                <a href="contact.php" class="btn-secondary">Prendre contact</a>
             </div>
-    </main>
+        </div>
+        <div class="hero-card">
+            <div class="card-row">
+                <span class="card-label">Statut</span>
+                <span class="card-value"><span class="status-dot"></span>Disponible</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">Université</span>
+                <span class="card-value">UPL — Lubumbashi</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">Filière</span>
+                <span class="card-value gold">GL / IA</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">Niveau</span>
+                <span class="card-value">BAC2 — 2025</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">Localisation</span>
+                <span class="card-value">Lubumbashi, RDC</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">Spécialité</span>
+                <span class="card-value gold">Systèmes Souverains</span>
+            </div>
+            <div class="card-row">
+                <span class="card-label">E-mail</span>
+                <span class="card-value" style="font-size:11px">mosesitela646@gmail.com</span>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top:0;position:relative;z-index:1">
+        <div class="stats-row">
+            <div class="stat"><span class="stat-n">100</span><span class="stat-l">Ambitions</span></div>
+            <div class="stat"><span class="stat-n">6</span><span class="stat-l">Projets actifs</span></div>
+            <div class="stat"><span class="stat-n">BAC2</span><span class="stat-l">Niveau actuel</span></div>
+            <div class="stat"><span class="stat-n">2030</span><span class="stat-l">Vision cible</span></div>
+        </div>
+    </div>
+</section>
 
-    <section class="contact-section" id="contact">
-        <div class="contact-container">
-            <div class="badge">SIGNAL DISPONIBLE</div>
-            <h2 style="font-size: 2.5rem; font-weight: 800; margin-top: 15px;">INITIALISER LE CONTACT</h2>
-            
-            <div class="contact-grid">
-                <a href="mailto:mosesitela646@gmail.com" class="contact-method">
-                    <span>E-MAIL OFFICIEL</span>
-                    <h4>mosesitela646@gmail.com</h4>
-                </a>
-                
-                <a href="https://wa.me/243895999478" target="_blank" class="contact-method">
-                    <span>LIGNE DIRECTE WHATSAPP</span>
-                    <h4>+243 895 999 478</h4>
-                </a>
-                
-                <a href="https://github.com/mosesitela646-crypto" target="_blank" class="contact-method">
-                    <span>RÉPERTOIRE GITHUB</span>
-                    <h4>@mosesitela646-crypto</h4>
-                </a>
-                
-                <div class="contact-method" style="cursor: default;">
-                    <span>STATION ACTUELLE</span>
-                    <h4>Lubumbashi, RDC</h4>
+<section class="alt">
+    <div class="container">
+        <div class="section-tag">Expertise</div>
+        <h2 class="section-title">Domaines de spécialisation</h2>
+        <div class="domains-grid">
+            <a href="#ambitions" class="domain-card wide">
+                <div class="domain-icon">⬡</div>
+                <div class="domain-id">SYS-INFRA</div>
+                <h3>Infrastructure Cloud Souveraine</h3>
+                <p>Conception de systèmes d'hébergement des données nationales congolaises, alimentés par les ressources énergétiques locales. Zéro dépendance aux hyperscalers étrangers.</p>
+                <div class="domain-arrow">→</div>
+            </a>
+            <a href="#ambitions" class="domain-card">
+                <div class="domain-icon">◈</div>
+                <div class="domain-id">IA-CORE</div>
+                <h3>Intelligence Artificielle</h3>
+                <p>Modèles de langage adaptés aux langues nationales de la RDC.</p>
+                <div class="domain-arrow">→</div>
+            </a>
+            <a href="#ambitions" class="domain-card">
+                <div class="domain-icon">◇</div>
+                <div class="domain-id">FINTECH</div>
+                <h3>Systèmes Financiers</h3>
+                <p>Protocoles de transaction décentralisés pour l'inclusion financière.</p>
+                <div class="domain-arrow">→</div>
+            </a>
+            <a href="#ambitions" class="domain-card">
+                <div class="domain-icon">⬢</div>
+                <div class="domain-id">ALGO</div>
+                <h3>Algorithme Best_Kelly</h3>
+                <p>Optimisation du critère de Kelly pour la gestion des risques locaux.</p>
+                <div class="domain-arrow">→</div>
+            </a>
+            <a href="#ambitions" class="domain-card">
+                <div class="domain-icon">△</div>
+                <div class="domain-id">CYBER</div>
+                <h3>Cybersécurité</h3>
+                <p>Protection des infrastructures gouvernementales critiques de la RDC.</p>
+                <div class="domain-arrow">→</div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section id="ambitions">
+    <div class="container">
+        <div class="section-tag">Atlas</div>
+        <h2 class="section-title">100 Ambitions Stratégiques</h2>
+        <div class="filter-bar">
+            <button class="fbtn on" data-f="all">Tout</button>
+            <button class="fbtn" data-f="infra">Infrastructure</button>
+            <button class="fbtn" data-f="ia">IA</button>
+            <button class="fbtn" data-f="fintech">Fintech</button>
+            <button class="fbtn" data-f="algo">Algorithme</button>
+            <button class="fbtn" data-f="security">Cyber</button>
+        </div>
+        <div class="amb-grid" id="ae"></div>
+    </div>
+</section>
+
+<section id="projets" class="alt">
+    <div class="container">
+        <div class="section-tag">Réalisations</div>
+        <h2 class="section-title">Projets en développement</h2>
+        <div class="proj-grid">
+            <article class="proj-card wide">
+                <div class="proj-top">
+                    <span class="proj-id">EDU-01 // UPL</span>
+                    <span class="proj-status ps-active">En cours</span>
+                </div>
+                <h3>UPL Cloud Lab</h3>
+                <p>Plateforme de calcul partagé pour les étudiants en GL/IA. Accès aux ressources GPU pour l'entraînement de modèles d'intelligence artificielle sans nécessiter d'équipement personnel coûteux.</p>
+                <div class="proj-tech"><span>Docker</span><span>Kubernetes</span><span>Python</span><span>FastAPI</span></div>
+                <a href="contact.php" class="btn-sm">En savoir plus →</a>
+            </article>
+            <article class="proj-card">
+                <div class="proj-top">
+                    <span class="proj-id">ALGO-01</span>
+                    <span class="proj-status ps-research">Recherche</span>
+                </div>
+                <h3>Moteur Best_Kelly</h3>
+                <p>Implémentation du critère de Kelly adapté aux marchés financiers informels de la RDC.</p>
+                <div class="proj-tech"><span>Python</span><span>NumPy</span><span>Scipy</span></div>
+                <a href="contact.php" class="btn-sm">En savoir plus →</a>
+            </article>
+            <article class="proj-card">
+                <div class="proj-top">
+                    <span class="proj-id">IA-01 // NLP</span>
+                    <span class="proj-status ps-research">Recherche</span>
+                </div>
+                <h3>LLM Lingala</h3>
+                <p>Premier modèle de langage pour le Lingala, Swahili et Tshiluba.</p>
+                <div class="proj-tech"><span>PyTorch</span><span>HuggingFace</span><span>CUDA</span></div>
+                <a href="contact.php" class="btn-sm">En savoir plus →</a>
+            </article>
+            <article class="proj-card">
+                <div class="proj-top">
+                    <span class="proj-id">DATA-01</span>
+                    <span class="proj-status ps-concept">Concept</span>
+                </div>
+                <h3>Traçabilité Minérale</h3>
+                <p>Suivi temps-réel de l'extraction minière artisanale via blockchain.</p>
+                <div class="proj-tech"><span>Solidity</span><span>Ethereum</span><span>IoT</span></div>
+                <a href="contact.php" class="btn-sm">En savoir plus →</a>
+            </article>
+            <article class="proj-card">
+                <div class="proj-top">
+                    <span class="proj-id">FIN-01</span>
+                    <span class="proj-status ps-concept">Concept</span>
+                </div>
+                <h3>CongoPay Protocol</h3>
+                <p>Paiements décentralisés via SMS/USSD pour les zones sans banque.</p>
+                <div class="proj-tech"><span>Blockchain</span><span>USSD</span><span>Node.js</span></div>
+                <a href="contact.php" class="btn-sm">En savoir plus →</a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section id="vision">
+    <div class="container">
+        <div class="section-tag">Vision</div>
+        <h2 class="section-title">Indépendance numérique du Congo</h2>
+        <div class="vision-layout">
+            <div class="vision-text">
+                <p>La RDC possède les ressources naturelles les plus stratégiques du XXIe siècle — coltan, cobalt, lithium. Pourtant, ses données, ses systèmes financiers et ses infrastructures numériques restent administrés depuis l'extérieur.</p>
+                <p><strong>La technologie est le nouveau territoire.</strong> Un État qui ne maîtrise pas son infrastructure numérique n'est pas pleinement souverain.</p>
+                <p>Mon rôle en tant que futur ingénieur est de construire les couches techniques qui permettront au Congo de reprendre le contrôle de son espace numérique — en s'appuyant sur notre réalité, nos langues et nos ressources.</p>
+                <div class="val-grid" style="margin-top:35px;grid-template-columns:repeat(2,1fr)">
+                    <div class="val-card"><div class="val-icon">⚙</div><h3>Rigueur technique</h3><p>Systèmes robustes, documentés, maintenables sur le long terme.</p></div>
+                    <div class="val-card"><div class="val-icon">🌍</div><h3>Impact local</h3><p>Des solutions qui résolvent des problèmes réels congolais.</p></div>
+                    <div class="val-card"><div class="val-icon">🔒</div><h3>Souveraineté</h3><p>Les données congolaises restent sur le sol congolais.</p></div>
+                    <div class="val-card"><div class="val-icon">📡</div><h3>Accessibilité</h3><p>Conçu pour connexions faibles et appareils abordables.</p></div>
+                </div>
+            </div>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-dot done">✓</div>
+                    <div class="tl-content">
+                        <span class="tl-date">2024</span>
+                        <h4>Fondations académiques</h4>
+                        <p>BAC1 GL/IA — algorithmique, structures de données, mathématiques discrètes.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot now">◉</div>
+                    <div class="tl-content">
+                        <span class="tl-date">2025 — En cours</span>
+                        <h4>BAC2 — Spécialisation</h4>
+                        <p>Intelligence artificielle, systèmes distribués. Prototypes Best_Kelly et LLM Lingala.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">○</div>
+                    <div class="tl-content">
+                        <span class="tl-date">2026</span>
+                        <h4>Licence — Première infrastructure</h4>
+                        <p>Déploiement UPL Cloud Lab. Système de traçabilité minérale.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">○</div>
+                    <div class="tl-content">
+                        <span class="tl-date">2027–2028</span>
+                        <h4>Master — Systèmes critiques</h4>
+                        <p>IA souveraine. Protocole CongoPay. Partenariats africains.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">○</div>
+                    <div class="tl-content">
+                        <span class="tl-date">2030+</span>
+                        <h4>Impact national</h4>
+                        <p>Infrastructure cloud opérationnelle. LLM congolais en production.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <footer>
-        MOISE ITELA // BAC2 GL/IA // UNIVERSITÉ PROTESTANTE DE LUBUMBASHI (UPL) // 2026
-    </footer>
+<section class="alt">
+    <div class="container">
+        <div class="cta-wrap">
+            <h2>Construisons ensemble l'avenir numérique du Congo</h2>
+            <p>Collaboration, partenariat académique ou simple échange — toutes les portes sont ouvertes.</p>
+            <div class="cta-actions">
+                <a href="#ambitions" class="btn-secondary">Voir les 100 ambitions</a>
+                <a href="contact.php" class="btn-primary">Prendre contact</a>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        const ambitions = [
-            { id: "SYS-01", tag: "Infra", title: "Souveraineté Cloud", desc: "Hébergement des données nationales sur des serveurs locaux alimentés par Inga.", size: "big" },
-            { id: "IA-01", tag: "Intelligence", title: "LLM Lingala", desc: "Modèle de langage optimisé pour les langues nationales de la RDC.", size: "wide" },
-            { id: "MATH-01", tag: "Algorithme", title: "Moteur Best_Kelly", desc: "Restauration du critère de Kelly pour la gestion des risques financiers locaux.", size: "" },
-            { id: "GL-01", tag: "Software", title: "Cadastre Immuable", desc: "Gestion des titres fonciers via une blockchain privée sécurisée.", size: "wide" },
-            { id: "DATA-01", tag: "Mining", title: "Traçabilité Minérale", desc: "Système de suivi temps-réel de l'extraction minière artisanale.", size: "" },
-            { id: "NET-01", tag: "Network", title: "Dorsale Fibre", desc: "Optimisation du routage pour la liaison Ouest-Est du pays.", size: "tall" },
-            { id: "FIN-01", tag: "Fintech", title: "CongoPay Protocol", desc: "Protocole de transaction décentralisé pour les zones sans banque.", size: "" },
-            { id: "SEC-01", tag: "Cyber", title: "Cyber-Shield RDC", desc: "Protection périmétrique des infrastructures gouvernementales.", size: "" },
-            { id: "EDU-01", tag: "EdTech", title: "UPL Cloud Lab", desc: "Plateforme de calcul partagé pour les étudiants en GL/IA.", size: "big" },
-            { id: "AGRI-01", tag: "AgriTech", title: "AgriVision AI", desc: "Détection des maladies des cultures via drones et vision par ordinateur.", size: "wide" }
-        ];
+<footer>
+    <div class="container">
+        <div class="footer-inner">
+            <a href="#hero" class="nav-logo">ITELA.GL</a>
+            <nav class="footer-nav">
+                <a href="#hero">Accueil</a>
+                <a href="#ambitions">Ambitions</a>
+                <a href="#projets">Projets</a>
+                <a href="#vision">Vision</a>
+                <a href="contact.php">Contact</a>
+            </nav>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-copy">Moise Mapuche ITELA — BAC2 GL/IA — UPL — 2026</span>
+            <span class="footer-loc">Lubumbashi, République Démocratique du Congo</span>
+        </div>
+    </div>
+</footer>
 
-        // Génération automatique des 90 autres pour le volume de code
-        const categories = ["SYSTEM", "ALGO", "DATA", "GL", "IA", "SECURITY"];
-        for (let i = 11; i <= 100; i++) {
-            const cat = categories[Math.floor(Math.random() * categories.length)];
-            ambitions.push({
-                id: `ARC-${i}`,
-                tag: cat,
-                title: `Jalon Technologique n°${i}`,
-                desc: `Développement du module stratégique d'indépendance numérique pour la vision 2026 du système ITELA.`,
-                size: i % 12 === 0 ? "big" : (i % 7 === 0 ? "wide" : "")
-            });
-        }
+<script>
+    const data = [
+        {id:"SYS-01",tag:"infra",lb:"Infrastructure",title:"Souveraineté Cloud",desc:"Hébergement des données nationales sur serveurs locaux alimentés par le barrage d'Inga.",sz:"big"},
+        {id:"IA-01",tag:"ia",lb:"Intelligence",title:"LLM Lingala",desc:"Modèle de langage pour Lingala, Swahili et Tshiluba. IA nativement congolaise.",sz:"wide"},
+        {id:"MATH-01",tag:"algo",lb:"Algorithme",title:"Moteur Best_Kelly",desc:"Critère de Kelly adapté aux marchés financiers informels de la RDC.",sz:""},
+        {id:"GL-01",tag:"infra",lb:"Software",title:"Cadastre Immuable",desc:"Gestion des titres fonciers via blockchain privée. Fin des fraudes foncières.",sz:"wide"},
+        {id:"DATA-01",tag:"algo",lb:"Mining",title:"Traçabilité Minérale",desc:"Suivi temps-réel de l'extraction artisanale du coltan et cobalt via IoT.",sz:""},
+        {id:"NET-01",tag:"infra",lb:"Network",title:"Dorsale Fibre",desc:"Optimisation du routage national. Connectivité à très haut débit.",sz:""},
+        {id:"FIN-01",tag:"fintech",lb:"Fintech",title:"CongoPay Protocol",desc:"Transactions décentralisées via SMS/USSD pour l'inclusion financière.",sz:""},
+        {id:"SEC-01",tag:"security",lb:"Cyber",title:"Cyber-Shield RDC",desc:"Protection périmétrique des infrastructures gouvernementales critiques.",sz:""},
+        {id:"EDU-01",tag:"infra",lb:"EdTech",title:"UPL Cloud Lab",desc:"Calcul partagé GPU pour les étudiants GL/IA de l'UPL.",sz:"big"},
+        {id:"AGRI-01",tag:"ia",lb:"AgriTech",title:"AgriVision AI",desc:"Détection des maladies des cultures via drones et vision par ordinateur.",sz:"wide"}
+    ];
+    const cats=["infra","algo","ia","fintech","security"];
+    const lbs={infra:"Infrastructure",algo:"Algorithme",ia:"Intelligence",fintech:"Fintech",security:"Cyber"};
+    for(let i=11;i<=100;i++){
+        const t=cats[(i-1)%cats.length];
+        data.push({id:`ARC-${String(i).padStart(2,'0')}`,tag:t,lb:lbs[t],
+            title:`Module Stratégique n°${i}`,
+            desc:`Composant n°${i} de l'architecture d'indépendance numérique congolaise à horizon 2030.`,
+            sz:i%13===0?"big":i%7===0?"wide":""});
+    }
 
-        const engine = document.getElementById('ambition-engine');
-        function render() {
-            ambitions.forEach((amb) => {
-                const card = document.createElement('div');
-                card.className = `bento-card ${amb.size}`;
-                card.innerHTML = `
-                    <div>
-                        <span class="card-tag">${amb.id} // ${amb.tag}</span>
-                        <h3>${amb.title}</h3>
-                        <p>${amb.desc}</p>
-                    </div>
-                    <div style="font-family: var(--font-mono); font-size: 9px; margin-top: 20px; color: var(--primary)">READY_FOR_DEPLOYMENT</div>
-                `;
-                engine.appendChild(card);
-            });
-        }
-        render();
-    </script>
+    function render(f){
+        const g=document.getElementById('ae');g.innerHTML='';
+        (f==='all'?data:data.filter(a=>a.tag===f)).forEach(a=>{
+            const c=document.createElement('div');
+            c.className=`amb-card ${a.sz}`;
+            c.innerHTML=`<div><div class="amb-id">${a.id} // ${a.lb}</div><h3>${a.title}</h3><p>${a.desc}</p></div><div class="amb-status">DEPLOY_READY</div>`;
+            g.appendChild(c);
+        });
+    }
+    render('all');
+
+    document.querySelectorAll('.fbtn').forEach(b=>{
+        b.addEventListener('click',()=>{
+            document.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('on'));
+            b.classList.add('on');render(b.dataset.f);
+        });
+    });
+
+    const tg=document.querySelector('.nav-toggle'),nl=document.querySelector('.nav-links');
+    tg.addEventListener('click',()=>{const o=nl.classList.toggle('open');tg.setAttribute('aria-expanded',o)});
+    document.addEventListener('click',e=>{if(!tg.contains(e.target)&&!nl.contains(e.target)){nl.classList.remove('open');tg.setAttribute('aria-expanded',false)}});
+
+    const obs=new IntersectionObserver(en=>{en.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>{e.target.style.opacity='1';e.target.style.transform='translateY(0)'},i*50);obs.unobserve(e.target)}})},{threshold:.08});
+    document.querySelectorAll('.domain-card,.proj-card,.val-card').forEach(c=>{c.style.opacity='0';c.style.transform='translateY(18px)';c.style.transition='opacity .5s ease,transform .5s ease,border-color .3s,box-shadow .3s';obs.observe(c)});
+</script>
 </body>
 </html>
